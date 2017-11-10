@@ -1,45 +1,35 @@
-extends ./_partial/layout.pug
-block content
-  include ./_partial/post_header.pug
-  .article-content(style='max-width:'+ theme.content_width +'px')
-    if page.photos && page.photos.length
-      div
-        each photo in page.photos
-          a.article-gallery-img.fancybox(href=photo)
-            img(src=photo)
-    | !{page.content}
-  .article-meta(style='max-width:'+ theme.content_width +'px')
-    if page.tags && page.tags.length
-      .tags
-        i.icon.icon-tag
-        | !{list_tags(page.tags)}
-    if page.tags && page.categories.length
-      .categories
-        i.icon.icon-category
-        | !{list_categories(page.categories)}
-  if theme.duoshuo.enable
-    .article-comment(style='max-width:'+ theme.content_width +'px')
-      #ds-thread.ds-thread(data-thread-key=page._id, data-title=page.title, data-url=config.url + url_for(page.path), site-name=theme.duoshuo.siteName)
-      script.
-        var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-        var duoshuoQuery = {short_name: siteName};
-        (function() {
-          var ds = document.createElement('script');
-          ds.type = 'text/javascript';ds.async = true;
-          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-          ds.charset = 'UTF-8';
-          (document.getElementsByTagName('head')[0] 
-          || document.getElementsByTagName('body')[0]).appendChild(ds);
-        })();
-  ul.navication
-    li.home
-      a(href="/")
-        i.icon.icon-home
-    if page.prev && page.prev.path
-      li
-        a(href=url_for(page.prev.path))
-          i.icon.icon-arror-left
-    if page.next && page.next.path
-      li
-        a(href=url_for(page.next.path))
-          i.icon.icon-arror-right
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>安装nginx的一些参数 - Hexo</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">安装nginx的一些参数</h1><ul class="meta"><li><i class="icon icon-author"></i>John Doe</li><li><i class="icon icon-clock"></i>2 Minutes</li><li><i class="icon icon-calendar"></i>November 10, 2017</li></ul></div></div><div class="article-content" style="max-width:800px"><p>configure命令用来配置nginx编译环境。 该命令定义了系统各方面功能，包括允许nginx使用的连接处理方式。 其执行结果是生成一个Makefile文件。 configure命令支持如下参数：</p>
+<p>–prefix=path — 定义服务器文件的完整路径，该路径同时也是configure命令设置的 相对路径（除类库源文件外）以及nginx.conf文件定义的相对路径的基准路径。其默认 值是/usr/local/nginx。</p>
+<p>–sbin-path=path — 设置nginx可执行文件的完整路径，该路径仅在安装期间使用， 默认路径为prefix/sbin/nginx。</p>
+<p>–conf-path=path — 设置配置文件nginx.conf的完整路径。如有必要，总是可以 在nginx启动时通过命令行参数-cfile指定一个不同的配置文件路径。 默认路径为prefix/conf/nginx.conf。</p>
+<p>–pid-path=path — 设置nginx.pid文件的完整路径，该文件存储了主进程的进程ID。安装完成后， 该路径总是可以在nginx.conf文件中用 pid指令来修改。 默认路径为prefix/logs/nginx.pid。</p>
+<p>–error-log-path=path — 设置记录主要错误、警告以及调试信息日志的完整路径。安装完成后， 该路径总是可以在nginx.conf文件中用 error_log 指令来修改。 默认路径为prefix/logs/error.log。</p>
+<p>–http-log-path=path — 设置记录HTTP服务器主要请求日志的完整路径。安装完成后， 该路径总是可以在nginx.conf文件用 access_log 指令来修改。 默认路径为prefix/logs/access.log</p>
+<p>–user=name — 设置工作进程以某非特权用户的身份运行。安装完成后，该用户名总是可以在 nginx.conf文件用user指令来修改。 其默认值为nobody。</p>
+<p>–group=name — 设置工作进程以某非特权用户的身份运行。安装完成后，该用户名总是可以在 nginx.conf用user指令来修改。 其默认名称与未授权用户名称相同。</p>
+<p>–with-select_module<br>–without-select_module — 设置是否将select()方法模块编译进nginx中。如果系统平台不支持kqueue、epoll、rtsig或/dev/poll等更合适的方法， 该模块会被自动编译。</p>
+<p>–with-poll_module<br>–without-poll_module — 设置是否将poll()方法模块编译进nginx中。如果系统平台不支持kqueue、epoll、rtsig或/dev/poll等更合适的方法， 该模块会被自动编译。</p>
+<p>–without-http_gzip_module — 不编译http_gzip_module模块。该模块可以压缩HTTP服务器的响应，该模块需要zlib库才能编译和运行。</p>
+<p>–without-http_rewrite_module — 不编译http_rewrite_module模块。该模块允许HTTP服务器重定向请求，改变请求的URI地址 。创建并运行该模块需要PCRE库支持。</p>
+<p>–without-http_proxy_module — 不编译HTTP服务器的代理模块。</p>
+<p>–with-http_ssl_module — 为HTTP服务器编译HTTPS协议支持的模块。该模块默认是不编译的。它需要OpenSSL库才能编译和运行。</p>
+<p>–with-pcre=path — 设置PCRE库源文件的路径地址。PCRE库的发行版(version 4.4 — 8.30)需要先从PCRE站点下载并解压缩。 剩下的安装工作由nginx的./configure和make命令来完成。该库应用于location 指令的正则表达式支持以及ngx_http_rewrite_module模块。</p>
+<p>–with-pcre-jit — 编译PCRE库时增加“实时编译（pcre_jit）”支持。</p>
+<p>–with-zlib=path — 设置zlib库源文件的路径地址。zlib库的发行版(version 1.1.3 — 1.2.5)需要先从zlib站点下载并解压缩。 剩下的安装工作由nginx的./configure和make命令来完成。该库应用于 ngx_http_gzip_module模块。</p>
+<p>–with-cc-opt=parameters — 设置将会添加额外参数到CFLAGS变量中。当在FreeBSD使用系统PCRE库时，需要指定 –with-cc-opt=”-I /usr/local/include”。 如果需要增加select()方法所支持的文件数量，也可以参照如下方式指定： –with-cc-opt=”-D FD_SETSIZE=2048”。</p>
+<p>–with-ld-opt=parameters — 设置将会在链接（linking）过程中使用的额外参数。当在FreeBSD使用系统PCRE库时，需要指定 –with-ld-opt=”-L /usr/local/lib”。</p>
+<p>以下是参数使用示例（注意不应有换行）：</p>
+<p>./configure<br>    –sbin-path=/usr/local/nginx/nginx<br>    –conf-path=/usr/local/nginx/nginx.conf<br>    –pid-path=/usr/local/nginx/nginx.pid<br>    –with-http_ssl_module<br>    –with-pcre=../pcre-4.4<br>    –with-zlib=../zlib-1.1.3</p>
+</div><div class="article-meta" style="max-width:800px"></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cj9tdqoc80001lk4s9br6rc5u" data-title="安装nginx的一些参数" data-url="http://yoursite.com/2017/11/10/安装nginx的一些参数/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+var duoshuoQuery = {short_name: siteName};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2017/11/09/hello-world/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2017 Hexo<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>
